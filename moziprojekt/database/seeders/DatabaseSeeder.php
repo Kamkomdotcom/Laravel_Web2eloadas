@@ -3,9 +3,9 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
@@ -14,6 +14,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        //Seeder futtatások
+        $this->call([
+            MoziSeeder::class,
+            FilmSeeder::class,
+            HelySeeder::class,
+        ]);
+
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+
         //admin és egy sima felhasználó
         User::factory()->create([
             'name' => 'Admin User',
@@ -21,19 +31,11 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('password'),
             'role' => 'admin',
         ]);
-        
         User::factory()->create([
             'name' => 'Test User',
             'email' => 'user@example.com',
             'password' => Hash::make('password'),
-            'role' => 'user',
-        ]);
-
-        //többi seeder
-        $this->call([
-            MoziSeeder::class,
-            FilmSeeder::class,
-            HelySeeder::class,
+            'role' => 'registered',
         ]);
     }
 }
