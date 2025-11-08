@@ -9,6 +9,7 @@ class Mozi extends Model
 {
     use HasFactory;
 
+    protected $table = 'mozi';
     protected $primaryKey = 'moziazon'; //Ea
 
     protected $fillable = ['mozinev', 'irszam', 'cim', 'telefon'];
