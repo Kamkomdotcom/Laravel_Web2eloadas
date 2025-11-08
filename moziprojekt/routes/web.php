@@ -26,36 +26,29 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
-
-
-//Adatbázis menü (három tábla)
+//Adatbázis menü
 Route::get('/mozik', [MoziController::class, 'index'])->name('mozik');
 Route::get('/filmek', [FilmController::class, 'index'])->name('filmek');
 Route::get('/helyek', [HelyController::class, 'index'])->name('helyek');
-
-//Kapcsolat (űrlap)
+//Kapcsolat
 Route::get('/kapcsolat', [MessageController::class, 'create'])->name('kapcsolat');
 Route::post('/kapcsolat', [MessageController::class, 'store'])->name('kapcsolat.store');
-
-//Üzenetek megtekintése (csak bejelentkezve)
+//Üzenetek megtekintése
 Route::middleware(['auth'])->group(function () {
     Route::get('/uzenetek', [MessageController::class, 'index'])->name('uzenetek');
 });
-
-//Diagram oldal (Chart.js)
+//Diagram oldal
 Route::get('/diagram', [DiagramController::class, 'index'])->name('diagram');
-
-//CRUD (pl. Filmek kezelése)
+//CRUD
 Route::middleware(['auth'])->group(function () {
-    Route::resource('/crud/filmek', FilmController::class);
+    Route::resource('/crud/filmek', FilmController::class)
+         ->names('crud.filmek');
 });
+//Admin oldal
+Route::middleware(['auth', 'admin'])->group(function () {
 
-//Admin oldal (csak adminnak)
-Route::middleware(['auth'])->group(function () {
     Route::get('/admin', function () {
-        if (!auth()->user()->isAdmin()) {
-            abort(403, 'Nincs jogosultságod az admin oldalhoz.');
-        }
         return view('admin.index');
     })->name('admin');
+
 });
