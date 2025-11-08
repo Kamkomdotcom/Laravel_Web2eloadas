@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Hely;
 use Illuminate\Http\Request;
 
 class HelyController extends Controller
@@ -11,11 +12,14 @@ class HelyController extends Controller
      */
     public function index()
     {
-        //
-    }
+        $helyek = Hely::with(['film', 'mozi'])->get();
 
-    /**
-     * Show the form for creating a new resource.
+        return view('helyek.index', [
+            'helyek' => $helyek
+        ]);
+    }
+     /* 
+     Show the form for creating a new resource.
      */
     public function create()
     {

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Mozi; //Mozi modell
 use Illuminate\Http\Request;
 
 class MoziController extends Controller
@@ -11,7 +12,12 @@ class MoziController extends Controller
      */
     public function index()
     {
-        //
+        $mozik = Mozi::orderBy('mozinev', 'asc')->get(); //Összes mozi lekérdezése
+
+        //nézetnek adjuk az adatokat
+        return view('mozik.index', [
+            'mozik' => $mozik
+        ]);
     }
 
     /**
@@ -62,3 +68,4 @@ class MoziController extends Controller
         //
     }
 }
+
