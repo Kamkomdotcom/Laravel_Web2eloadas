@@ -1,0 +1,31 @@
+.navbar-brand {
+    font-family: "Fira Sans", sans-serif;
+    font-size: 20px; 
+    font-weight: 700;
+    color: #2F80ED !important;
+    display: flex;
+    align-items: center;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.navbar-brand:hover {
+    color: #2F80ED !important; 
+}
+
+.navbar-brand i {
+    font-size: 1.9rem;
+    margin-right: 10px; 
+    font-weight: normal; 
+}
+
+a.footer-logo-text {
+    font-family: "Fira Sans", sans-serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #323450;
+}
+
+a.footer-logo-text:hover {
+    color: #2F80ED;
+}
